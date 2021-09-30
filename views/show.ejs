@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css"
+    </head>
+  <body>
+    <nav>
+      <a href="/products">Back to Product List</a>
+    </nav>
+    <h1><%=product.name %></h1>
+
+    <img src="<%= product.img%>" alt=""><br />
+    Description: <%=product.description%><br />
+    Price: <%=product.price%><br />
+    Qty: <%=product.qty%><br />
+    <form action="/products/<%=product._id%>?_method=PUT" method="POST">
+     
+      <% if(product.qty != 0) { %>
+        <input class="hidden" type="hidden" name="qty" value="<%=(parseInt(product.qty)-1).toString() %>">
+        <input class="purchase" type="submit" name="" value="Purchase Item"/>
+        <% } else { %>
+          <p>Out of Stock!</p>
+          <input class="nope" type="submit" name="" value="Purchase Item" disabled="true"/>
+        <% } %>
+    
+    </form>
+
+    <form action="/products/<%= product._id %>?_method=DELETE" method='POST'>
+      <input type="submit" value="DELETE"/>
+    </form>
+    <a href="/products/<%=product._id%>/edit">Edit Item</a>
+  </body>
+</html>
